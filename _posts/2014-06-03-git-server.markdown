@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Welcome to Jekyll!"
+title: "Git Server"
 date: 2014-03-19 17:40:41
 ---
 
