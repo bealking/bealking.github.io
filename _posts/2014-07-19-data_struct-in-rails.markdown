@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "浅谈在rails中使用串化和结构体进行重构"
+title: "浅谈在rails中使用结构体进行重构"
 date: 2014-07-19 11:40:41
 category: rails
 ---
