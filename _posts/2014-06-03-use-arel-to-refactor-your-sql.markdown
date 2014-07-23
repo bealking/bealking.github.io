@@ -4,8 +4,8 @@ title: "如何重构复杂SQL查询"
 date: 2014-06-16 17:40:41
 ---
 
-# 一个故事……
-## 美好的开始
+## 一个故事……
+### 美好的开始
 
 设想我们是一家小超市的程序员，超市每日的流水都保存在一张订单表中，财务要求看到所有的订单数据以便进行每日的应收账款对账工作。于是初始的查询是下面这个样子的：
 
@@ -27,7 +27,7 @@ orders = Order.where(depot_id: params[:depot_id], employee_id: params[:employee_
               .all #=> 事情看起来开始有点不美了……
 {% endhighlight %}
 
-## 遭遇的问题
+### 遭遇的问题
 
 我们传了一堆参数来构造查询条件，但是这些参数并不是完全必须的，如果其中有任意一项为空，那么我们就可能吃到一个**ActiveRecord::StatementInvalid**。于是我们的代码可能会变成这个样子：
 
@@ -45,7 +45,7 @@ orders = Order.search(params[:q]).all
 # params[:q] => {depot_id_eq: nil, employee_id_eq: nil, created_at_eq: nil}
 {% endhighlight %}
 
-## 但是……
+### 但是……
 
 商品不是完美的，所以总有顾客买了东西后来进行退货。于是我们忙碌的店员在销售之余还要接受顾客退回来的东西，并将相应的款项退还给顾客。
 商品不完美，我们使用的Gem也不是完美的。看似美好的ransack只支持And，于是在财务告诉我们，除了要统计每日销售的订单外，还要统计一下顾客的退单以便保证每天店员的营业款足够准确的时候，我们崩溃了。因为我们优雅的代码可能会变成这样：
@@ -56,21 +56,22 @@ orders = Order.where('created_at = ? or refunded_at = ?', params[:created_at], p
 orders.all
 {% endhighlight %}
 
-## What the fuck!
+### What the fuck!
 
 之后财务还可能会提出关联其他表的需求，于是你会发现where中的条件因为没写表名而存在冲突……
 
 ![](../images/wtf.png)
 
-# 救世主的伟大登场
-## Arel是什么？
+## 救世主的伟大登场
+### Arel是什么？
 
 Arel是一个Ruby的Gem，它是个SQL AST管理器。
 AST 是抽象语法树（Abstract syntax tree）的缩写。
 
 Arel一开始由[Bryan Helmkamp](https://github.com/brynary/arel)维护开发，由于其强大的功能，而被Rails开发小组[forked](https://github.com/rails/arel)，吸收进了其框架内并注入AR，而成为Rails源代码的一部分。
 
-## 用Arel拯救被毁掉的查询
+
+### 用Arel拯救被毁掉的查询
 
 {% highlight ruby %}
 def table
@@ -99,11 +100,13 @@ orders = Order.where(employee_eq(params[:employee_id]))
               .all
 {% endhighlight %}
 
-## 抽象查询的好处
+### 抽象查询的好处
 
 - 可读性
 - 重用性
 - 高可维护性
 - 稳定性
 
-# 路在脚下，更深度的挖掘Arel
+
+## 路在脚下，更深度的挖掘Arel
+
