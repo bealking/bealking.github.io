@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Vim中使用Ack替代grep进行搜索"
-date: 2014-07-14 11:40:41
+date: 2014-07-14 15:30:31
 category: vim
 ---
 
