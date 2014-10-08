@@ -233,7 +233,7 @@ append\_features 是一个很容易和 included 混淆的回调方法，两者�
   end
 ```
 
-该方法会检测 @\_included_block 这一实例变量是否存在，如果存在，则说明 module 内至少存在1个以上的 included 块，则抛出异常；否则就将块的引用保存在实例变量 _included_block 中。如果不存在 base 这一参数，则调用默认方法进行处理。
+该方法会检测 @\_included\_block 这一实例变量是否存在，如果存在，则说明 module 内至少存在1个以上的 included 块，则抛出异常；否则就将块的引用保存在实例变量 \_included\_block 中。如果不存在 base 这一参数，则调用默认方法进行处理。
 
 ```ruby
   def class_methods(&class_methods_module_definition)
