@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Vim中使用Ack替代grep进行搜索"
-date: 2014-07-14 15:30:31
-category: vim
+title: "整合SendCloud和Postfix"
+date: 2017-10-17 22:30:31
+category: linux
 ---
 
 安装postfix作为邮件发送服务。
